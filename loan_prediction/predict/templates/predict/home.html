@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<style>
+	*{
+	margin: 0;
+}
+body{
+	
+	margin: 0;
+	padding: 0;
+	background: linear-gradient(-45deg,#c3e3ec 20%,#d6e8ec 20% 50%,#cbdfec 50% 80%,#d7e0e4 80%);
+	background-attachment: fixed;
+	background-size: 100%;
+	
+}
+.head_div {margin:0;
+  padding: 0;
+  background:rgba(255,255,255,.4);
+  box-shadow: 0 5px 5px rgba(0,0,0,.2);
+  height:20vh;
+  display: grid;
+}
+.middel_div {
+	margin-top:10vh;
+	border-radius: 20px;
+  background:rgba(255,255,255,.4);
+  box-shadow: 0 5px 5px rgba(0,0,0,.2);
+  height:45vh;
+
+}
+.footer_div {
+	margin-top:40vh;
+  background:rgba(0,0,0,.5);
+  height:10vh;
+  width:100%;
+
+}
+</style>
+<body>
+<div class="head_div">
+		<h2 class="text-center text-success">Machine Learning Model</h2>
+		<h3 class="text-center"style="color:orange">Loan Predictations...!</h3>
+</div>
+
+
+<div class="container-fluid"style="margin-top: 5vh;">
+  <div class="row">
+<form action="{%url 'predict'%}" method="POST">
+    {%csrf_token%}
+    
+    <div class="col-sm-4">
+    	<label class="form-control-label">Gender</label>
+      <select name="gender" class="form-control">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>  
+    </div>
+    <div class="col-sm-4">
+    	<label class="form-control-label">Marital Status</label>
+      <select name="marital_status" class="form-control">
+        <option value="married">Married</option>
+        <option value="unmarried">Unmarried</option>
+      </select> 
+    </div>
+    <div class="col-sm-4">
+    	<label class="form-control-label">Dependents</label>
+      <select name="dependents" class="form-control">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3+</option>
+      </select> 
+    </div>
+    
+    <div class="col-sm-12" style="margin-top: 5vh;"></div>
+
+    <div class="col-sm-4">
+    	<label class="form-control-label">Education</label>
+      <select name="education" class="form-control">
+        <option value="graduate">Graduate</option>
+        <option value="not graduate">Not Graduate</option>
+      </select> 
+    </div>
+    <div class="col-sm-4">
+    	<label class="form-control-label">Self_Employed</label>
+      <select name="self_employed" class="form-control">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select> 
+    </div>
+    <div class="col-sm-4">
+    	<label class="form-control-label">Applicant Income</label>
+      <input type="text" name="applicant_income"class="form-control" placeholder="Applicant Income">
+    </div>
+    
+
+    <div class="col-sm-12" style="margin-top: 5vh;"></div>
+
+    <div class="col-sm-4">
+    	<label class="form-control-label">Coapplicant Income</label>
+      <input type="text" name="coapplicant_income"class="form-control" placeholder="Last name">
+    </div>
+    <div class="col-sm-4">
+      <label class="form-control-label">Loan Amount</label>
+      <input type="text" name="loan_amount"class="form-control" placeholder="Loan Amount">
+    </div>
+    <div class="col-sm-4">
+      <label class="form-control-label">Loan Amount Term</label>
+      <input type="text" class="form-control" name="loan_amount_term"placeholder="Loan Amount Term">
+    </div>
+    
+    <div class="col-sm-12" style="margin-top: 5vh;"></div>
+
+    <div class="col-sm-4">
+      <label class="form-control-label">Credit History</label> 
+      <select name="credit_history" class="form-control">
+        <option value="1.0">1.1</option>
+        <option value="0.0">0.0</option>
+      </select> 
+    </div>
+    <div class="col-sm-4">
+    	<label class="form-control-label">Property Area</label>
+      <select name="property_area" class="form-control">
+        <option value="rural">Rural</option>
+        <option value="semiurban">Semiurban</option>
+        <option value="urban">Urban</option>>
+      </select> 
+    </div>
+    <div class="col-sm-4"style="margin-top:4vh;">
+    	
+      <input type="submit" class="btn btn-success form-control" value="Predict">
+    </div>
+  
+
+
+  
+</form>
+</div>
+
+<div class="text-center bg-danger" style="margin-top: 5vh;">
+  {%if data == "0"%}
+    <h3 class="">According to our calculations, you will not get the loan from Bank...!</h3>
+  {%else%}
+    <h3 class="">Congratulations!! you will get the loan from Bank...!</h3>  
+  {% endif%}
+</div>
+</div>
+
+
+
+
+
+
+
+
+	
+<div class="footer_div text-center"style="">
+	<p style="color:white;font-style: italic;padding:15px;">©Copyright
+        <span>Loan Prediction Model Deployment</span> |
+        <span>Designed By niteshasale358@gmail.com</span></p>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
